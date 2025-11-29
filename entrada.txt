@@ -1,0 +1,118 @@
+% =========================
+% PARÂMETROS NORMATIVOS (didáticos)
+% =========================
+salario_minimo(1412).                 % BRL
+limite_rpc_bolsa_basica(0.5).         % renda per capita <= 50% SM
+limite_rpc_bolsa_idoso(1.0).          % renda per capita <= 100% SM
+limite_rpc_auxilio_desemprego(1.2).   % renda per capita <= 120% SM
+limite_rpc_creche(1.2).               % idem
+
+% definição das categorias
+categoria(idoso).
+categoria(desempregado).
+categoria(ativo).
+categoria(estudante).
+
+prioridade(idoso, 3).
+prioridade(desempregado, 2).
+prioridade(ativo, 1).
+prioridade(estudante, 0).
+
+
+% descontos por dependente (fator didático, para "renda ajustada")
+desconto_dependente(0.03).            % -3% do SM por dependente até 5
+
+
+% =========================
+% FAMÍLIAS
+% familia(Id).
+% membro(Familia, Pessoa).
+% renda_pessoa(Pessoa, Valor).
+% dependente(Pessoa) — menor de 18 ou incapaz.
+% =========================
+familia(f1). 
+familia(f2). 
+familia(f3). 
+familia(f4).
+
+% Família 1: Ana (mãe), João (pai), Bia (filha dependente)
+membro(f1, ana).    
+membro(f1, joao).   
+membro(f1, bia).    
+
+% Família 2: Carla (aposentada), Luan (filho trabalhador)
+membro(f2, carla).  
+membro(f2, luan).   
+
+% Família 3: Dona Lia (idosa), Pedrinho (neto dependente), Marcos (desempregado)
+membro(f3, dona_lia). 
+membro(f3, pedrinho). 
+membro(f3, marcos).   
+
+% Família 4: Zeca (trabalhador), Rita (desempregada), Vovô (idoso)
+membro(f4, zeca).   
+membro(f4, rita).   
+membro(f4, vovo).   
+
+renda_pessoa(ana, 1800).
+renda_pessoa(joao, 0).
+renda_pessoa(bia, 0).  
+
+renda_pessoa(carla, 1400).
+renda_pessoa(luan, 1100).
+
+renda_pessoa(dona_lia, 900).
+renda_pessoa(pedrinho, 0). 
+renda_pessoa(marcos, 0).  
+
+renda_pessoa(zeca, 2600).
+renda_pessoa(rita, 500).  
+renda_pessoa(vovo, 0).   
+
+dependente(pedrinho).
+dependente(bia).
+
+desempregado(marcos).
+desempregado(rita).
+
+
+% =========================
+% ATRIBUTOS PESSOAIS
+% =========================
+% Idades
+idade(ana, 29).   
+idade(joao, 31).  
+idade(bia, 7).
+idade(carla, 63). 
+idade(luan, 28).
+idade(dona_lia, 70). 
+idade(pedrinho, 5). 
+idade(marcos, 34).
+idade(zeca, 40). 
+idade(rita, 38). 
+idade(vovo, 66).
+
+% Ocupações
+ocupacao(ana, formal).
+ocupacao(joao, informal).
+ocupacao(bia, estudante).
+ocupacao(carla, aposentada).
+ocupacao(luan, formal).
+ocupacao(dona_lia, aposentada).
+ocupacao(pedrinho, estudante).
+ocupacao(marcos, desempregado).
+ocupacao(zeca, formal).
+ocupacao(rita, desempregado).
+ocupacao(vovo, aposentada).
+ocupacao(zeca, desempregado).
+ocupacao(pedrinho, formal).
+ocupacao(joao, desempregado).
+ocupacao(zeca, aposentada).
+
+
+% =========================
+% SITUAÇÃO ESPECIAL (didática)
+% =========================
+monoparental(f1, ana).     % família 1 chefiada por ana
+crianca_pequena(bia).      % até 6 anos
+crianca_pequena(pedrinho).
