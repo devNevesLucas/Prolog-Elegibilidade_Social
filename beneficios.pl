@@ -54,6 +54,7 @@ tem_direito(P, bolsa_basica) :-
     familia_de(P, F), 
     renda_per_capita_ajustada(F, RPCA), 
     salario_minimo(SalMin),
+    criterio_patrimonio(F, bolsa_basica),
     RPCA =< 0.5 * SalMin.
 
 tem_direito(P, bolsa_idoso) :-
@@ -61,6 +62,7 @@ tem_direito(P, bolsa_idoso) :-
     renda_per_capita(F, RPC),
     categoria_de(P, idoso),
     salario_minimo(SalMin),
+    criterio_patrimonio(F, bolsa_idoso),
     RPC =< SalMin.
 
 tem_direito(P, auxilio_desemprego) :-
@@ -68,6 +70,7 @@ tem_direito(P, auxilio_desemprego) :-
     renda_per_capita(F, RPC),
     categoria_de(P, desempregado),
     salario_minimo(SalMin),
+    criterio_patrimonio(F, auxilio_desemprego),
     RPC =< SalMin * 1.2.
 
 tem_direito(P, auxilio_creche) :-
@@ -76,8 +79,10 @@ tem_direito(P, auxilio_creche) :-
     num_dependentes(F, Num),
     Num > 0,
     salario_minimo(SalMin),
+    criterio_patrimonio(F, auxilio_creche),
     RPC =< SalMin * 1.2.
 
 tem_direito(P, bonus_monoparental) :-
     familia_de(P, F),
+    criterio_patrimonio(F, bonus_monoparental),
     monoparental(F, P).

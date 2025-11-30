@@ -22,6 +22,12 @@ prioridade(estudante, 0).
 % descontos por dependente (fator didático, para "renda ajustada")
 desconto_dependente(0.03).            % -3% do SM por dependente até 5
 
+% limite de patrimonio quantos salarios minimos
+limite_patrimonio(bolsa_idoso, 200).
+limite_patrimonio(bolsa_basica, 45).
+limite_patrimonio(auxilio_desemprego, 150).
+limite_patrimonio(auxilio_creche, 175).
+limite_patrimonio(bonus_monoparental, 200).
 
 % =========================
 % FAMÍLIAS
@@ -34,6 +40,11 @@ familia(f1).
 familia(f2). 
 familia(f3). 
 familia(f4).
+
+patrimonio_familia(f1, 35000).
+patrimonio_familia(f2, 180000).
+patrimonio_familia(f3, 250000).
+patrimonio_familia(f4, 20000).
 
 % Família 1: Ana (mãe), João (pai), Bia (filha dependente)
 membro(f1, ana).    

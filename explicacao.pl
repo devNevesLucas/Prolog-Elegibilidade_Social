@@ -36,32 +36,44 @@ motivo(P, bolsa_basica, Motivo) :-
     familia_de(P, FAM),
     renda_per_capita_ajustada(FAM, RPCA),
     salario_minimo(SM),
-    format(atom(Motivo), 'RPCA=~2f <= 0.5*SM (~2f)', [RPCA, SM])
+    limite_patrimonio(bolsa_basica, K),
+    patrimonio_familia(FAM, PF),
+    format(atom(Motivo), 'RPCA=~2f <= 0.5*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para bolsa basica (K (~2f) * SM (~2f))', [RPCA, SM, PF, K, SM])
     .
 
 motivo(P, bolsa_idoso, Motivo) :-
     familia_de(P, FAM),
     renda_per_capita(FAM, RPC),
     salario_minimo(SM),
-    format(atom(Motivo), 'idoso e RPCA=~2f <= 1.0*SM (~2f)', [RPC, SM])
+    limite_patrimonio(bolsa_idoso, K),
+    patrimonio_familia(FAM, PF),
+    format(atom(Motivo), 'idoso, RPCA=~2f <= 1.0*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para bolso idoso (K (~2f) * SM (~2f))', [RPC, SM, PF, K, SM])
     .
 
 motivo(P, auxilio_desemprego, Motivo) :-
     familia_de(P, FAM),
     renda_per_capita(FAM, RPC),
     salario_minimo(SM),
-    format(atom(Motivo), 'desempregado e RPC=~2f <= 1.2*SM (~2f)', [RPC, SM])
+    limite_patrimonio(auxilio_desemprego, K),
+    patrimonio_familia(FAM, PF),
+    format(atom(Motivo), 'desempregado, RPC=~2f <= 1.2*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para auxilio desemprego (K (~2f) * SM (~2f))', [RPC, SM, PF, K, SM])
     .
 
 motivo(P, auxilio_creche, Motivo) :-
     familia_de(P, FAM),
     renda_per_capita(FAM, RPC),
     salario_minimo(SM),
-    format(atom(Motivo), 'familia com crianca pequena e RPC=~2f <= 1.2*SM (~2f)', [RPC, SM])
+    limite_patrimonio(auxilio_creche, K),
+    patrimonio_familia(FAM, PF),
+    format(atom(Motivo), 'familia com crianca pequena, RPC=~2f <= 1.2*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para auxilio creche (K (~2f) * SM (~2f))', [RPC, SM, PF, K, SM])
     .
 
-motivo(_, bonus_monoparental, Motivo) :-
-    format(atom(Motivo), 'familia monoparental', [])
+motivo(P, bonus_monoparental, Motivo) :-
+    familia_de(P, FAM),
+    salario_minimo(SM),
+    limite_patrimonio(bonus_monoparental, K),
+    patrimonio_familia(FAM, PF),
+    format(atom(Motivo), 'familia monoparental e patrimonio familia (~2f) < limite patrimonio para auxilio creche (K (~2f) * SM (~2f))', [PF, K, SM])
     .
 
 % ============================================
@@ -99,6 +111,7 @@ motivo(_, bonus_monoparental, Motivo) :-
 %        'idoso e RPC=800.00 <= 1.0*SM (1000.00)',
 %        'familia monoparental'].
 % 
+
 elegibilidade(P, Beneficios, Fundamentacao) :-
     findall(DIREITO, tem_direito(P, DIREITO), Beneficios),
     categoria_mais_alta(P, Cat),

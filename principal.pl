@@ -3,3 +3,4 @@
 :- ensure_loaded('familias').
 :- ensure_loaded('beneficios').
 :- ensure_loaded('explicacao').
+:- ensure_loaded('extensoes').
