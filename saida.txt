@@ -1,0 +1,87 @@
+?- obter_limite(curitiba, auxilio_desemprego, L).
+L = 1.2.
+
+?- renda_familiar(f5, R).
+R = 1300.
+
+renda_familiar(f7, R).
+R = 500.
+
+renda_per_capita_ajustada(f5, RPCA).
+RPCA = 650.0.
+
+categoria_mais_alta(tiago, C).
+C = desempregado.
+
+tem_direito(tiago, auxilio_desemprego).
+true.
+
+?- elegibilidade(vova_ida, Bs, F).
+Bs = [bolsa_basica, bolsa_idoso],
+F = ['categoria_prioritaria=idoso', 
+    'RPCA=650.00 <= 0.50 * SM (1412.00) e patrimonio familia (12000.00) < limite patrimonio para bolsa basica (K (45.00) * SM (1412.00))', 
+    'idoso, RPCA=650.00 <= 1.10 * SM (1412.00) e patrimonio familia (12000.00) < limite patrimonio para bolso idoso (K (200.00) * SM (1412.00))'
+].
+
+?- findall(P, tem_direito(P, bolsa_basica), Lista).
+Lista = [ana, joao, bia, tiago, vova_ida, beto, claudia].
+
+?- elegibilidade(tiago, Bs, F).
+Bs = [bolsa_basica, auxilio_desemprego],
+F = ['categoria_prioritaria=desempregado', 
+    'RPCA=650.00 <= 0.50 * SM (1412.00) e patrimonio familia (12000.00) < limite patrimonio para bolsa basica (K (45.00) * SM (1412.00))', 
+    'desempregado, RPC=650.00 <= 1.20 * SM (1412.00) e patrimonio familia (12000.00) < limite patrimonio para auxilio desemprego (K (150.00) * SM (1412.00))'
+].
+
+?- categoria_mais_alta(vova_ida, C).
+C = idoso.
+
+?- renda_per_capita_ajustada(f5, RPCA).
+RPCA = 650.0.
+
+?- obter_limite(rio_janeiro, bolsa_basica, L).
+L = 0.5.
+
+?- renda_familiar(f2, R).
+R = 2500.
+
+?- num_dependentes(f7, N).
+N = 0.
+
+tem_direito(dona_lia, bolsa_idoso).
+true.
+
+?- motivos(beto, M).
+M = [bolsa_basica, 'categoria_prioritaria=ativo', 
+    'RPCA=250.00 <= 0.55 * SM (1412.00) e patrimonio familia (2000.00) < limite patrimonio para bolsa basica (K (45.00) * SM (1412.00))'
+].
+
+?- findall(P, tem_direito(P, auxilio_desemprego), Lista).
+Lista = [joao, rita, tiago].
+
+?- findall(P, (tem_direito(P, auxilio_desemprego), familia_de(P, F), municipio_familia(F, curitiba)), Lista).
+Lista = [tiago].
+
+?- findall(P, (tem_direito(P, bolsa_basica), familia_de(P, F), municipio_familia(F, recife)), Lista).
+Lista = [beto, claudia].
+
+?- tem_direito(tine, bolsa_basica).
+false.
+
+?- categoria_mais_alta(ana, C).
+C = ativo.
+
+?- motivos(ana, M).
+M = [bolsa_basica, bonus_monoparental, 'categoria_prioritaria=ativo', 
+    'RPCA=557.64 <= 0.50 * SM (1412.00) e patrimonio familia (35000.00) < limite patrimonio para bolsa basica (K (45.00) * SM (1412.00))', 
+    'familia monoparental e patrimonio familia (35000.00) < limite patrimonio para auxilio creche (K (200.00) * SM (1412.00))'
+].
+
+?- findall(P, tem_direito(P, bolsa_idoso), Lista).
+Lista = [carla, dona_lia, zeca, vovo, vova_ida].
+
+?- renda_per_capita(f2, RPC).
+RPC = 1250.
+
+?- tem_direito(rita, auxilio_desemprego).
+true.

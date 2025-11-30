@@ -38,7 +38,9 @@ motivo(P, bolsa_basica, Motivo) :-
     salario_minimo(SM),
     limite_patrimonio(bolsa_basica, K),
     patrimonio_familia(FAM, PF),
-    format(atom(Motivo), 'RPCA=~2f <= 0.5*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para bolsa basica (K (~2f) * SM (~2f))', [RPCA, SM, PF, K, SM])
+    municipio_familia(FAM, Mun),
+    obter_limite(Mun, bolsa_basica, Coeficiente),
+    format(atom(Motivo), 'RPCA=~2f <= ~2f * SM (~2f) e patrimonio familia (~2f) < limite patrimonio para bolsa basica (K (~2f) * SM (~2f))', [RPCA, Coeficiente, SM, PF, K, SM])
     .
 
 motivo(P, bolsa_idoso, Motivo) :-
@@ -47,7 +49,9 @@ motivo(P, bolsa_idoso, Motivo) :-
     salario_minimo(SM),
     limite_patrimonio(bolsa_idoso, K),
     patrimonio_familia(FAM, PF),
-    format(atom(Motivo), 'idoso, RPCA=~2f <= 1.0*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para bolso idoso (K (~2f) * SM (~2f))', [RPC, SM, PF, K, SM])
+    municipio_familia(FAM, Mun),
+    obter_limite(Mun, bolsa_idoso, Coeficiente),
+    format(atom(Motivo), 'idoso, RPCA=~2f <= ~2f * SM (~2f) e patrimonio familia (~2f) < limite patrimonio para bolso idoso (K (~2f) * SM (~2f))', [RPC, Coeficiente, SM, PF, K, SM])
     .
 
 motivo(P, auxilio_desemprego, Motivo) :-
@@ -56,7 +60,9 @@ motivo(P, auxilio_desemprego, Motivo) :-
     salario_minimo(SM),
     limite_patrimonio(auxilio_desemprego, K),
     patrimonio_familia(FAM, PF),
-    format(atom(Motivo), 'desempregado, RPC=~2f <= 1.2*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para auxilio desemprego (K (~2f) * SM (~2f))', [RPC, SM, PF, K, SM])
+    municipio_familia(FAM, Mun),
+    obter_limite(Mun, auxilio_desemprego, Coeficiente),
+    format(atom(Motivo), 'desempregado, RPC=~2f <= ~2f * SM (~2f) e patrimonio familia (~2f) < limite patrimonio para auxilio desemprego (K (~2f) * SM (~2f))', [RPC, Coeficiente, SM, PF, K, SM])
     .
 
 motivo(P, auxilio_creche, Motivo) :-
@@ -65,7 +71,9 @@ motivo(P, auxilio_creche, Motivo) :-
     salario_minimo(SM),
     limite_patrimonio(auxilio_creche, K),
     patrimonio_familia(FAM, PF),
-    format(atom(Motivo), 'familia com crianca pequena, RPC=~2f <= 1.2*SM (~2f) e patrimonio familia (~2f) < limite patrimonio para auxilio creche (K (~2f) * SM (~2f))', [RPC, SM, PF, K, SM])
+    municipio_familia(FAM, Mun),
+    obter_limite(Mun, auxilio_creche, Coeficiente),
+    format(atom(Motivo), 'familia com crianca pequena, RPC=~2f <= ~2f * SM (~2f) e patrimonio familia (~2f) < limite patrimonio para auxilio creche (K (~2f) * SM (~2f))', [RPC, Coeficiente, SM, PF, K, SM])
     .
 
 motivo(P, bonus_monoparental, Motivo) :-

@@ -7,6 +7,17 @@ limite_rpc_bolsa_idoso(1.0).          % renda per capita <= 100% SM
 limite_rpc_auxilio_desemprego(1.2).   % renda per capita <= 120% SM
 limite_rpc_creche(1.2).               % idem
 
+limite_rpc_regional(sao_paulo, bolsa_basica, 0.6).
+limite_rpc_regional(sao_paulo, bolsa_idoso, 1.2).
+limite_rpc_regional(sao_paulo, auxilio_creche, 1.5).
+
+limite_rpc_regional(recife, bolsa_basica, 0.55).
+limite_rpc_regional(recife, auxilio_desempregado, 0.8).
+
+limite_rpc_regional(curitiba, bolsa_idoso, 1.1).
+limite_rpc_regional(curitiba, auxilio_desempregado, 0.75).
+limite_rpc_regional(curitiba, auxilio_creche, 1.2).
+
 % definição das categorias
 categoria(idoso).
 categoria(desempregado).
@@ -17,7 +28,6 @@ prioridade(idoso, 3).
 prioridade(desempregado, 2).
 prioridade(ativo, 1).
 prioridade(estudante, 0).
-
 
 % descontos por dependente (fator didático, para "renda ajustada")
 desconto_dependente(0.03).            % -3% do SM por dependente até 5
@@ -40,11 +50,26 @@ familia(f1).
 familia(f2). 
 familia(f3). 
 familia(f4).
+familia(f5).
+familia(f6).
+familia(f7).
+
+municipio_familia(f1, rio_janeiro).
+municipio_familia(f2, sao_paulo).
+municipio_familia(f3, curitiba).
+municipio_familia(f4, recife).
+municipio_familia(f5, curitiba).
+municipio_familia(f6, belo_horizonte). 
+municipio_familia(f7, recife).
 
 patrimonio_familia(f1, 35000).
 patrimonio_familia(f2, 180000).
 patrimonio_familia(f3, 250000).
 patrimonio_familia(f4, 20000).
+patrimonio_familia(f5, 12000).
+patrimonio_familia(f6, 95000).
+patrimonio_familia(f7, 2000).
+
 
 % Família 1: Ana (mãe), João (pai), Bia (filha dependente)
 membro(f1, ana).    
@@ -65,6 +90,20 @@ membro(f4, zeca).
 membro(f4, rita).   
 membro(f4, vovo).   
 
+% --- Família 5 (Curitiba): Neto desempregado cuidando da avó ---
+membro(f5, tiago).
+membro(f5, vova_ida).
+
+% --- Família 6 (BH): Casal com filha adolescente ---
+membro(f6, mariana).
+membro(f6, lucas).
+membro(f6, tine).
+
+% --- Família 7 (Recife): Casal jovem em situação vulnerável ---
+membro(f7, beto).
+membro(f7, claudia).
+
+
 renda_pessoa(ana, 1800).
 renda_pessoa(joao, 0).
 renda_pessoa(bia, 0).  
@@ -80,12 +119,25 @@ renda_pessoa(zeca, 2600).
 renda_pessoa(rita, 500).  
 renda_pessoa(vovo, 0).   
 
+renda_pessoa(tiago, 0).       
+renda_pessoa(vova_ida, 1300).
+
+renda_pessoa(mariana, 2200).
+renda_pessoa(lucas, 1800).
+renda_pessoa(tine, 0).
+
+renda_pessoa(beto, 300). 
+renda_pessoa(claudia, 200).
+
+
 dependente(pedrinho).
 dependente(bia).
+dependente(tine).
+
 
 desempregado(marcos).
 desempregado(rita).
-
+desempregado(tiago).
 
 % =========================
 % ATRIBUTOS PESSOAIS
@@ -102,6 +154,14 @@ idade(marcos, 34).
 idade(zeca, 40). 
 idade(rita, 38). 
 idade(vovo, 66).
+idade(tiago, 24).
+idade(vova_ida, 78).
+idade(mariana, 42).
+idade(lucas, 45).
+idade(tine, 16).
+idade(beto, 23).
+idade(claudia, 21).
+
 
 % Ocupações
 ocupacao(ana, formal).
@@ -119,7 +179,13 @@ ocupacao(zeca, desempregado).
 ocupacao(pedrinho, formal).
 ocupacao(joao, desempregado).
 ocupacao(zeca, aposentada).
-
+ocupacao(tiago, desempregado).
+ocupacao(vova_ida, aposentada).
+ocupacao(mariana, formal).
+ocupacao(lucas, formal).
+ocupacao(tine, estudante).
+ocupacao(beto, informal).
+ocupacao(claudia, informal).
 
 % =========================
 % SITUAÇÃO ESPECIAL (didática)
